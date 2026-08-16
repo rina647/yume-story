@@ -402,7 +402,6 @@ updatePreview();
 
 
 /* 吹き出し */
-
 function addSpeech() {
 
 blockNumber++;
@@ -410,18 +409,14 @@ blockNumber++;
 const editor =
 document.getElementById("editor");
 
-
 const block =
 document.createElement("div");
-
 
 block.className =
 "speech-block";
 
-
 block.id =
 "block-" + blockNumber;
-
 
 block.innerHTML = `
 
@@ -442,6 +437,24 @@ oninput="updatePreview()"
 >
 
 <label>
+アイコン画像
+</label>
+
+<input
+type="file"
+accept="image/*"
+onchange="loadIcon(this, '${block.id}')"
+>
+
+<label>
+☑ この画像を使用する権利があります
+</label>
+
+<label>
+☑ 著作権・肖像権などを侵害していないことを確認しました
+</label>
+
+<label>
 セリフ
 </label>
 
@@ -449,7 +462,6 @@ oninput="updatePreview()"
 placeholder="セリフを入力してください"
 oninput="updatePreview()"
 ></textarea>
-
 
 <label>
 吹き出しの色
@@ -460,7 +472,6 @@ type="color"
 value="#f8d8e8"
 oninput="updatePreview()"
 >
-
 
 <br>
 
@@ -480,10 +491,39 @@ editor.appendChild(block);
 updatePreview();
 
 }
+function loadIcon(input, blockId) {
 
+const file =
+input.files[0];
 
-/* 削除 */
+if (!file) return;
 
+const reader =
+new FileReader();
+
+reader.onload =
+function(e) {
+
+const block =
+document.getElementById(blockId);
+
+block.dataset.icon =
+e.target.result;
+
+const icon =
+block.querySelector(".icon");
+
+icon.innerHTML =
+`<img src="${e.target.result}"
+style="width:50px;height:50px;border-radius:50%;object-fit:cover;">`;
+
+updatePreview();
+
+};
+
+reader.readAsDataURL(file);
+
+}
 function deleteBlock(id) {
 
 const block =
