@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>小説を書く｜YUME WORLD</title>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif;
+  background: #fff8fc;
+  color: #555;
+}
+
+header {
+  background: linear-gradient(135deg, #f7c9df, #dcd0ff);
+  color: white;
+  padding: 25px;
+  text-align: center;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 26px;
+}
+
+.container {
+  max-width: 900px;
+  margin: 30px auto;
+  padding: 20px;
+}
+
+.card {
+  background: white;
+  padding: 25px;
+  margin-bottom: 20px;
+  border-radius: 20px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+}
+
+h2 {
+  color: #bd79a2;
+  font-size: 20px;
+  border-left: 5px solid #dca6c7;
+  padding-left: 10px;
+}
+
+label {
+  display: block;
+  margin-top: 15px;
+  margin-bottom: 6px;
+  font-weight: bold;
+}
+
+input, textarea, select {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ead9e3;
+  border-radius: 12px;
+  font-size: 14px;
+  background: #fffafd;
+}
+
+textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+button {
+  border: none;
+  padding: 12px 20px;
+  border-radius: 25px;
+  cursor: pointer;
+  background: linear-gradient(135deg, #d99bc0, #bca9e8);
+  color: white;
+  font-size: 14px;
+  margin-top: 15px;
+}
+
+.character {
+  border: 1px solid #ead9e3;
+  padding: 18px;
+  border-radius: 15px;
+  margin-top: 15px;
+}
+
+.character h3 {
+  color: #a96f91;
+}
+
+.preview {
+  min-height: 200px;
+  background: #faf7ff;
+  border-radius: 15px;
+  padding: 20px;
+  margin-top: 15px;
+}
+
+.bubble {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin: 15px 0;
+}
+
+.icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #eadcf7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.message {
+  padding: 12px 18px;
+  border-radius: 18px;
+  background: #f8d8e8;
+  max-width: 70%;
+}
+
+.message.square {
+  border-radius: 5px;
+}
+
+.message.cloud {
+  border-radius: 30px;
+}
+
+.message.diamond {
+  transform: rotate(-1deg);
+}
+
+.message.thought {
+  border-radius: 50%;
+}
+
+.back {
+  color: #b8759c;
+  text-decoration: none;
+  font-size: 14px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>✏️ 小説を書く</h1>
+  <p>YUME WORLD</p>
+</header>
+
+<div class="container">
+
+<a class="back" href="index.html">← ホームへ戻る</a>
+
+<div class="card">
+
+<h2>📖 小説情報</h2>
+
+<label>小説タイトル</label>
+<input id="title" type="text" placeholder="小説のタイトルを入力">
+
+<label>あらすじ</label>
+<textarea id="summary" placeholder="小説のあらすじを入力"></textarea>
+
+<label>ジャンル</label>
+<select>
+<option>恋愛</option>
+<option>ファンタジー</option>
+<option>学園</option>
+<option>青春</option>
+<option>ミステリー</option>
+<option>その他</option>
+</select>
+
+</div>
+
+
+<div class="card">
+
+<h2>👤 キャラクター</h2>
+
+<div id="characters"></div>
+
+<button onclick="addCharacter()">＋ キャラクターを追加</button>
+
+</div>
+
+
+<div class="card">
+
+<h2>🎨 吹き出し設定</h2>
+
+<label>吹き出しの形</label>
+
+<select id="bubbleShape" onchange="updatePreview()">
+<option value="normal">丸型</option>
+<option value="square">角丸</option>
+<option value="cloud">ふんわり</option>
+<option value="diamond">ダイヤ</option>
+<option value="thought">思考</option>
+</select>
+
+
+<label>吹き出しの色</label>
+
+<input id="bubbleColor" type="color" value="#f8d8e8" onchange="updatePreview()">
+
+
+<label>セリフ</label>
+
+<input id="messageText" type="text"
+placeholder="ここにセリフを入力"
+oninput="updatePreview()">
+
+</div>
+
+
+<div class="card">
+
+<h2>🌸 チャプター</h2>
+
+<label>チャプタータイトル</label>
+
+<input type="text" placeholder="第1話「はじまり」">
+
+<label>背景画像</label>
+
+<input type="file" accept="image/*">
+
+<p style="font-size:12px;color:#999;">
+背景画像は今後、サイトに保存できるようにします。
+</p>
+
+<label>本文中に入れる画像</label>
+
+<input type="file" accept="image/*">
+
+<p style="font-size:12px;color:#999;">
+本文の画像も今後、自由に配置できるようにします。
+</p>
+
+</div>
+
+
+<div class="card">
+
+<h2>👀 プレビュー</h2>
+
+<div class="preview" id="preview">
+
+<div class="bubble">
+
+<div class="icon">👤</div>
+
+<div class="message" id="message">
+ここにセリフが表示されます
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+<script>
+
+let characterNumber = 0;
+
+function addCharacter() {
+
+characterNumber++;
+
+const area = document.getElementById("characters");
+
+const character = document.createElement("div");
+
+character.className = "character";
+
+character.innerHTML = `
+<h3>キャラクター ${characterNumber}</h3>
+
+<label>名前</label>
+
+<input type="text" placeholder="キャラクター名">
+
+<label>アイコン画像</label>
+
+<input type="file" accept="image/*">
+
+<label>
+<input type="checkbox">
+この画像は自分で作成した、または使用する権利があります
+</label>
+
+<label>
+<input type="checkbox">
+著作権・肖像権などを侵害していないことを確認しました
+</label>
+
+<label>
+<input type="checkbox">
+利用条件を確認しました
+</label>
+`;
+
+area.appendChild(character);
+}
+
+
+function updatePreview() {
+
+const shape = document.getElementById("bubbleShape").value;
+
+const color = document.getElementById("bubbleColor").value;
+
+const text = document.getElementById("messageText").value;
+
+const message = document.getElementById("message");
+
+message.className = "message " + shape;
+
+message.style.backgroundColor = color;
+
+message.textContent =
+text || "ここにセリフが表示されます";
+
+}
+
+</script>
+
+</body>
+</html>
