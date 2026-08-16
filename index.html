@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>YUME WORLD</title>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif;
+  background: #fff8fc;
+  color: #555;
+}
+
+header {
+  background: linear-gradient(135deg, #f7c9df, #dcd0ff);
+  padding: 28px 20px;
+  text-align: center;
+  color: white;
+}
+
+.logo {
+  font-size: 32px;
+  font-weight: bold;
+  letter-spacing: 3px;
+}
+
+.subtitle {
+  margin-top: 8px;
+  font-size: 13px;
+}
+
+nav {
+  background: white;
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+  padding: 15px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+nav a {
+  color: #888;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+nav a:hover {
+  color: #d98bb5;
+}
+
+.hero {
+  text-align: center;
+  padding: 60px 20px 45px;
+}
+
+.hero h1 {
+  color: #c77ca8;
+  font-size: 30px;
+  margin-bottom: 12px;
+}
+
+.hero p {
+  line-height: 1.8;
+  font-size: 14px;
+}
+
+.search {
+  margin: 25px auto;
+  max-width: 500px;
+  display: flex;
+  background: white;
+  border-radius: 30px;
+  padding: 6px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+}
+
+.search input {
+  flex: 1;
+  border: none;
+  outline: none;
+  padding: 12px 18px;
+  border-radius: 30px;
+  font-size: 14px;
+}
+
+.search button {
+  border: none;
+  background: #d99bc0;
+  color: white;
+  padding: 0 22px;
+  border-radius: 25px;
+  cursor: pointer;
+}
+
+.container {
+  max-width: 1000px;
+  margin: auto;
+  padding: 20px;
+}
+
+.section-title {
+  color: #b8759c;
+  border-left: 5px solid #dca6c7;
+  padding-left: 12px;
+  margin: 35px 0 20px;
+}
+
+.books {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 18px;
+}
+
+.book {
+  background: white;
+  border-radius: 18px;
+  padding: 20px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+}
+
+.book h3 {
+  margin-top: 0;
+  color: #9f7090;
+}
+
+.book p {
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.tag {
+  display: inline-block;
+  background: #f8e4ef;
+  color: #b36f96;
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+  margin-right: 5px;
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin: 35px 0;
+}
+
+.button {
+  background: linear-gradient(135deg, #d99bc0, #bca9e8);
+  color: white;
+  text-decoration: none;
+  padding: 13px 25px;
+  border-radius: 25px;
+  font-size: 14px;
+}
+
+footer {
+  margin-top: 50px;
+  padding: 30px;
+  text-align: center;
+  background: #f5eaf2;
+  font-size: 12px;
+  color: #999;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">YUME WORLD</div>
+  <div class="subtitle">あなたの「夢」を物語に。</div>
+</header>
+
+<nav>
+  <a href="#">ホーム</a>
+  <a href="#">小説を探す</a>
+  <a href="#">小説を書く</a>
+  <a href="#">ランキング</a>
+  <a href="#">マイページ</a>
+</nav>
+
+<section class="hero">
+
+  <h1>Welcome to YUME WORLD ✦</h1>
+
+  <p>
+    たくさんの物語と出会える<br>
+    無料の夢小説投稿サイト
+  </p>
+
+  <div class="search">
+    <input type="text" placeholder="小説を検索してみよう…">
+    <button>検索</button>
+  </div>
+
+</section>
+
+<div class="container">
+
+  <h2 class="section-title">✦ 人気の小説</h2>
+
+  <div class="books">
+
+    <div class="book">
+      <h3>君と過ごす365日</h3>
+      <p>
+        ある日、突然始まった不思議な恋。
+        これは、二人だけの秘密の物語。
+      </p>
+      <span class="tag">恋愛</span>
+      <span class="tag">青春</span>
+    </div>
+
+    <div class="book">
+      <h3>星降る魔法学園</h3>
+      <p>
+        魔法が存在する世界で出会った
+        仲間たちとのファンタジー。
+      </p>
+      <span class="tag">ファンタジー</span>
+      <span class="tag">学園</span>
+    </div>
+
+    <div class="book">
+      <h3>秘密の転校生</h3>
+      <p>
+        誰にも言えない秘密を抱えた
+        転校生と過ごす、不思議な日々。
+      </p>
+      <span class="tag">学園</span>
+      <span class="tag">恋愛</span>
+    </div>
+
+  </div>
+
+  <h2 class="section-title">✦ YUME WORLDでできること</h2>
+
+  <div class="buttons">
+    <a class="button" href="#">📖 小説を読む</a>
+    <a class="button" href="#">✏️ 小説を書く</a>
+  </div>
+
+</div>
+
+<footer>
+  © 2026 YUME WORLD
+</footer>
+
+</body>
+</html>
