@@ -3,19 +3,26 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>小説を書く｜YUME WORLD</title>
 
 <style>
+
 * {
   box-sizing: border-box;
 }
 
 body {
   margin: 0;
-  font-family: "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif;
+  font-family:
+    "Hiragino Kaku Gothic ProN",
+    "Yu Gothic",
+    sans-serif;
   background: #fff8fc;
   color: #555;
 }
+
+/* ヘッダー */
 
 header {
   background: linear-gradient(135deg, #f7c9df, #dcd0ff);
@@ -26,315 +33,593 @@ header {
 
 header h1 {
   margin: 0;
-  font-size: 26px;
+  font-size: 25px;
 }
 
 .container {
-  max-width: 900px;
+  max-width: 1000px;
   margin: 30px auto;
   padding: 20px;
 }
+
+/* カード */
 
 .card {
   background: white;
   padding: 25px;
   margin-bottom: 20px;
   border-radius: 20px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+
+  box-shadow:
+    0 5px 20px rgba(0,0,0,0.06);
 }
 
 h2 {
   color: #bd79a2;
-  font-size: 20px;
-  border-left: 5px solid #dca6c7;
+
+  border-left:
+    5px solid #dca6c7;
+
   padding-left: 10px;
 }
 
-label {
-  display: block;
-  margin-top: 15px;
-  margin-bottom: 6px;
-  font-weight: bold;
-}
+/* 入力 */
 
-input, textarea, select {
+input,
+textarea,
+select {
+
   width: 100%;
+
   padding: 12px;
-  border: 1px solid #ead9e3;
+
+  margin-top: 7px;
+
+  border:
+    1px solid #ead9e3;
+
   border-radius: 12px;
-  font-size: 14px;
+
   background: #fffafd;
+
+  font-size: 14px;
 }
 
 textarea {
-  min-height: 120px;
-  resize: vertical;
+  min-height: 100px;
 }
+
+/* ボタン */
 
 button {
+
   border: none;
-  padding: 12px 20px;
-  border-radius: 25px;
+
+  padding: 11px 18px;
+
+  margin: 5px;
+
+  border-radius: 20px;
+
   cursor: pointer;
-  background: linear-gradient(135deg, #d99bc0, #bca9e8);
+
+  background:
+    linear-gradient(
+      135deg,
+      #d99bc0,
+      #bca9e8
+    );
+
   color: white;
+
   font-size: 14px;
-  margin-top: 15px;
 }
 
-.character {
-  border: 1px solid #ead9e3;
-  padding: 18px;
-  border-radius: 15px;
-  margin-top: 15px;
+button:hover {
+  opacity: 0.85;
 }
 
-.character h3 {
-  color: #a96f91;
-}
+/* エディター */
 
-.preview {
-  min-height: 200px;
+.editor {
+
   background: #faf7ff;
-  border-radius: 15px;
+
   padding: 20px;
-  margin-top: 15px;
+
+  border-radius: 15px;
+
+  min-height: 200px;
 }
 
-.bubble {
+/* 本文 */
+
+.text-block {
+
+  background: white;
+
+  padding: 15px;
+
+  margin: 12px 0;
+
+  border-radius: 12px;
+
+  border:
+    1px solid #ead9e3;
+}
+
+/* 吹き出し */
+
+.speech-block {
+
   display: flex;
-  align-items: flex-start;
+
   gap: 10px;
+
+  align-items: flex-start;
+
   margin: 15px 0;
 }
 
 .icon {
-  width: 48px;
-  height: 48px;
+
+  width: 50px;
+
+  height: 50px;
+
   border-radius: 50%;
+
   background: #eadcf7;
+
   display: flex;
+
   align-items: center;
+
   justify-content: center;
+
   flex-shrink: 0;
 }
 
-.message {
-  padding: 12px 18px;
-  border-radius: 18px;
+.speech {
+
+  padding: 13px 18px;
+
+  border-radius: 20px;
+
   background: #f8d8e8;
-  max-width: 70%;
+
+  max-width: 75%;
+
+  word-break: break-word;
 }
 
-.message.square {
-  border-radius: 5px;
+/* 削除 */
+
+.delete {
+
+  background: #ddd;
+
+  color: #666;
+
+  font-size: 12px;
+
 }
 
-.message.cloud {
-  border-radius: 30px;
+/* プレビュー */
+
+.preview {
+
+  background: #fff;
+
+  padding: 20px;
+
+  border-radius: 15px;
+
+  min-height: 200px;
+
+  border:
+    1px solid #eee;
 }
 
-.message.diamond {
-  transform: rotate(-1deg);
-}
-
-.message.thought {
-  border-radius: 50%;
-}
-
-.back {
-  color: #b8759c;
-  text-decoration: none;
-  font-size: 14px;
-}
 </style>
+
 </head>
 
 <body>
 
 <header>
-  <h1>✏️ 小説を書く</h1>
-  <p>YUME WORLD</p>
+
+<h1>✏️ 小説を書く</h1>
+
+<p>YUME WORLD</p>
+
 </header>
+
 
 <div class="container">
 
-<a class="back" href="index.html">← ホームへ戻る</a>
 
 <div class="card">
 
 <h2>📖 小説情報</h2>
 
-<label>小説タイトル</label>
-<input id="title" type="text" placeholder="小説のタイトルを入力">
+<label>
+小説タイトル
+</label>
 
-<label>あらすじ</label>
-<textarea id="summary" placeholder="小説のあらすじを入力"></textarea>
-
-<label>ジャンル</label>
-<select>
-<option>恋愛</option>
-<option>ファンタジー</option>
-<option>学園</option>
-<option>青春</option>
-<option>ミステリー</option>
-<option>その他</option>
-</select>
-
-</div>
+<input
+id="title"
+type="text"
+placeholder="小説のタイトル"
+>
 
 
-<div class="card">
+<label>
+あらすじ
+</label>
 
-<h2>👤 キャラクター</h2>
-
-<div id="characters"></div>
-
-<button onclick="addCharacter()">＋ キャラクターを追加</button>
+<textarea
+placeholder="小説のあらすじ"
+></textarea>
 
 </div>
 
 
+
 <div class="card">
 
-<h2>🎨 吹き出し設定</h2>
+<h2>📚 チャプター</h2>
 
-<label>吹き出しの形</label>
+<label>
+チャプタータイトル
+</label>
 
-<select id="bubbleShape" onchange="updatePreview()">
-<option value="normal">丸型</option>
-<option value="square">角丸</option>
-<option value="cloud">ふんわり</option>
-<option value="diamond">ダイヤ</option>
-<option value="thought">思考</option>
-</select>
-
-
-<label>吹き出しの色</label>
-
-<input id="bubbleColor" type="color" value="#f8d8e8" onchange="updatePreview()">
-
-
-<label>セリフ</label>
-
-<input id="messageText" type="text"
-placeholder="ここにセリフを入力"
-oninput="updatePreview()">
+<input
+id="chapterTitle"
+type="text"
+placeholder="第1話「はじまり」"
+>
 
 </div>
 
 
+
 <div class="card">
 
-<h2>🌸 チャプター</h2>
+<h2>✏️ 本文を作成</h2>
 
-<label>チャプタータイトル</label>
-
-<input type="text" placeholder="第1話「はじまり」">
-
-<label>背景画像</label>
-
-<input type="file" accept="image/*">
-
-<p style="font-size:12px;color:#999;">
-背景画像は今後、サイトに保存できるようにします。
+<p>
+好きな順番で文章や吹き出しを追加できます。
 </p>
 
-<label>本文中に入れる画像</label>
 
-<input type="file" accept="image/*">
+<div>
 
-<p style="font-size:12px;color:#999;">
-本文の画像も今後、自由に配置できるようにします。
+<button onclick="addText()">
+＋ 普通の文章
+</button>
+
+<button onclick="addSpeech()">
+＋ 吹き出し
+</button>
+
+</div>
+
+
+<div
+id="editor"
+class="editor"
+>
+
+<p style="color:#aaa;">
+ここに文章や吹き出しを追加します。
 </p>
 
 </div>
+
+</div>
+
 
 
 <div class="card">
 
 <h2>👀 プレビュー</h2>
 
-<div class="preview" id="preview">
+<div
+id="preview"
+class="preview"
+>
 
-<div class="bubble">
-
-<div class="icon">👤</div>
-
-<div class="message" id="message">
-ここにセリフが表示されます
-</div>
-
-</div>
+<p style="color:#aaa;">
+ここに小説のプレビューが表示されます。
+</p>
 
 </div>
 
 </div>
 
+
 </div>
+
 
 
 <script>
 
-let characterNumber = 0;
+/* ブロック番号 */
 
-function addCharacter() {
+let blockNumber = 0;
 
-characterNumber++;
 
-const area = document.getElementById("characters");
+/* 普通の文章 */
 
-const character = document.createElement("div");
+function addText() {
 
-character.className = "character";
+blockNumber++;
 
-character.innerHTML = `
-<h3>キャラクター ${characterNumber}</h3>
+const editor =
+document.getElementById("editor");
 
-<label>名前</label>
 
-<input type="text" placeholder="キャラクター名">
+const block =
+document.createElement("div");
 
-<label>アイコン画像</label>
 
-<input type="file" accept="image/*">
+block.className =
+"text-block";
 
-<label>
-<input type="checkbox">
-この画像は自分で作成した、または使用する権利があります
-</label>
 
-<label>
-<input type="checkbox">
-著作権・肖像権などを侵害していないことを確認しました
-</label>
+block.id =
+"block-" + blockNumber;
+
+
+block.innerHTML = `
 
 <label>
-<input type="checkbox">
-利用条件を確認しました
+普通の文章
 </label>
+
+<textarea
+placeholder="ここに文章を入力してください"
+oninput="updatePreview()"
+></textarea>
+
+<br>
+
+<button
+class="delete"
+onclick="deleteBlock('${block.id}')"
+>
+削除
+</button>
+
 `;
 
-area.appendChild(character);
+editor.appendChild(block);
+
+updatePreview();
+
 }
 
 
+/* 吹き出し */
+
+function addSpeech() {
+
+blockNumber++;
+
+const editor =
+document.getElementById("editor");
+
+
+const block =
+document.createElement("div");
+
+
+block.className =
+"speech-block";
+
+
+block.id =
+"block-" + blockNumber;
+
+
+block.innerHTML = `
+
+<div class="icon">
+👤
+</div>
+
+<div style="flex:1;">
+
+<label>
+キャラクター名
+</label>
+
+<input
+type="text"
+placeholder="キャラクター名"
+oninput="updatePreview()"
+>
+
+<label>
+セリフ
+</label>
+
+<textarea
+placeholder="セリフを入力してください"
+oninput="updatePreview()"
+></textarea>
+
+
+<label>
+吹き出しの色
+</label>
+
+<input
+type="color"
+value="#f8d8e8"
+oninput="updatePreview()"
+>
+
+
+<br>
+
+<button
+class="delete"
+onclick="deleteBlock('${block.id}')"
+>
+削除
+</button>
+
+</div>
+
+`;
+
+editor.appendChild(block);
+
+updatePreview();
+
+}
+
+
+/* 削除 */
+
+function deleteBlock(id) {
+
+const block =
+document.getElementById(id);
+
+if(block) {
+
+block.remove();
+
+}
+
+updatePreview();
+
+}
+
+
+/* プレビュー更新 */
+
 function updatePreview() {
 
-const shape = document.getElementById("bubbleShape").value;
+const editor =
+document.getElementById("editor");
 
-const color = document.getElementById("bubbleColor").value;
+const preview =
+document.getElementById("preview");
 
-const text = document.getElementById("messageText").value;
 
-const message = document.getElementById("message");
+preview.innerHTML = "";
 
-message.className = "message " + shape;
 
-message.style.backgroundColor = color;
+const blocks =
+editor.children;
 
-message.textContent =
-text || "ここにセリフが表示されます";
+
+for(let block of blocks) {
+
+
+/* 普通の文章 */
+
+if(
+block.classList.contains(
+"text-block"
+)
+) {
+
+const textarea =
+block.querySelector(
+"textarea"
+);
+
+
+const p =
+document.createElement("p");
+
+
+p.textContent =
+textarea.value;
+
+
+p.style.lineHeight =
+"2";
+
+
+preview.appendChild(p);
+
+}
+
+
+/* 吹き出し */
+
+if(
+block.classList.contains(
+"speech-block"
+)
+) {
+
+
+const inputs =
+block.querySelectorAll(
+"input"
+);
+
+
+const textarea =
+block.querySelector(
+"textarea"
+);
+
+
+const name =
+inputs[0].value;
+
+
+const color =
+inputs[1].value;
+
+
+const bubble =
+document.createElement("div");
+
+
+bubble.className =
+"speech-block";
+
+
+bubble.innerHTML = `
+
+<div class="icon">
+👤
+</div>
+
+<div
+class="speech"
+style="background:${color};"
+>
+
+<strong>
+${name || "キャラクター"}
+</strong>
+
+<br>
+
+${textarea.value || "セリフ"}
+
+</div>
+
+`;
+
+
+preview.appendChild(
+bubble
+);
+
+}
+
+}
 
 }
 
