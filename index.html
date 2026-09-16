@@ -19,6 +19,7 @@ body {
 }
 
 header {
+  position: relative;
   background: linear-gradient(135deg, #f7c9df, #dcd0ff);
   padding: 28px 20px;
   text-align: center;
@@ -35,6 +36,7 @@ header {
   margin-top: 8px;
   font-size: 13px;
 }
+.account-area{position:absolute;right:18px;top:18px;display:flex;gap:6px;align-items:center;flex-wrap:wrap;justify-content:flex-end}.account-button{border:0;border-radius:18px;padding:9px 12px;background:#fff;color:#9f7090;cursor:pointer;box-shadow:0 2px 8px #0002}.account-badge{font-size:11px;border-radius:12px;padding:3px 7px;color:#fff}.official-badge{background:#d49b2c}.author-badge{background:#508dcc}.account-modal{display:none;position:fixed;inset:0;background:#0006;z-index:10;align-items:center;justify-content:center;padding:20px}.account-modal.open{display:flex}.account-panel{background:#fff8fc;max-width:430px;width:100%;max-height:90vh;overflow:auto;border-radius:20px;padding:24px;box-shadow:0 10px 35px #0004}.account-panel h2{margin-top:0}.account-panel input{width:100%;padding:11px;margin:6px 0 12px;border:1px solid #ead9e3;border-radius:12px}.account-list{display:grid;gap:8px;margin:12px 0}.account-row{display:flex;align-items:center;gap:9px;padding:10px;background:#fff;border:1px solid #ead9e3;border-radius:14px}.avatar{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,#d99bc0,#bca9e8);color:#fff;font-weight:bold}.account-row button{margin-left:auto;padding:7px 10px;border:0;border-radius:15px;background:#eadcf7;color:#8f6b94}.account-message{color:#a26c91;font-size:13px;min-height:20px}@media(max-width:650px){.account-area{right:8px;top:8px;max-width:180px}.account-button{font-size:11px;padding:8px}.logo{margin-top:38px}}
 
 nav {
   background: white;
@@ -175,6 +177,7 @@ footer {
 <body>
 
 <header>
+  <div class="account-area"><button class="account-button" id="accountSelectButton" type="button">アカウント選択</button><button class="account-button" id="loginButton" type="button">ログインする</button><span id="activeAccountBadge"></span></div>
   <div class="logo">YUME WORLD</div>
   <div class="subtitle">あなたの「夢」を物語に。</div>
 </header>
@@ -182,7 +185,7 @@ footer {
 <nav>
   <a href="#">ホーム</a>
   <a href="#">小説を探す</a>
-  <a href="#">小説を書く</a>
+  <a href="write.html">小説を書く</a>
   <a href="#">ランキング</a>
   <a href="#">マイページ</a>
 </nav>
@@ -254,5 +257,21 @@ footer {
   © 2026 YUME WORLD
 </footer>
 
+<script></script>
+<div id="accountModal" class="account-modal" role="dialog" aria-modal="true"><div class="account-panel"><button id="closeAccount" class="account-button" type="button" style="float:right">閉じる</button><h2 id="accountTitle">アカウント</h2><div id="accountContent"></div><div id="accountMessage" class="account-message"></div></div></div>
+<script>
+const ACCOUNT_KEY='yumeWorldAccountsV1',ACTIVE_KEY='yumeWorldActiveAccount';
+// 公式アカウントは運営サーバー側でのみ登録する想定。一般ユーザー用UIから変更・作成できない。
+const OFFICIAL_ACCOUNTS=[];const OFFICIAL_AUTHOR_IDS=[];
+const accountModal=document.getElementById('accountModal'),accountContent=document.getElementById('accountContent'),accountMessage=document.getElementById('accountMessage');
+function accounts(){try{return JSON.parse(localStorage.getItem(ACCOUNT_KEY)||'[]')}catch(e){return []}}function setAccounts(a){localStorage.setItem(ACCOUNT_KEY,JSON.stringify(a))}function activeAccount(){const id=localStorage.getItem(ACTIVE_KEY);return accounts().find(a=>a.id===id)||null}function avatarFor(a){return (a.name||'?').slice(0,1).toUpperCase()}
+async function hashPassword(password){const bytes=new TextEncoder().encode(password);const digest=await crypto.subtle.digest('SHA-256',bytes);return [...new Uint8Array(digest)].map(x=>x.toString(16).padStart(2,'0')).join('')}
+function badge(a){if(!a)return '';if(OFFICIAL_ACCOUNTS.includes(a.id))return '<span class="account-badge official-badge">運営公式</span>';if(OFFICIAL_AUTHOR_IDS.includes(a.id))return '<span class="account-badge author-badge">公式作者</span>';return ''}
+function refreshHeader(){const a=activeAccount();document.getElementById('activeAccountBadge').innerHTML=a?`<span class="account-badge">${a.name}</span>${badge(a)}`:'';document.getElementById('loginButton').textContent=a?'ログアウト':'ログインする'}
+function showAccountList(){accountContent.innerHTML='<p>端末に保存されているアカウントを選択できます。</p><div id="accountList" class="account-list"></div><button id="createAccount" class="account-button" type="button">＋ アカウントを作る</button>';const list=document.getElementById('accountList');const all=accounts();if(!all.length)list.innerHTML='<p>アカウントはまだありません。</p>';all.forEach(a=>{const row=document.createElement('div');row.className='account-row';row.innerHTML=`<div class="avatar">${avatarFor(a)}</div><strong>${escapeHtml(a.name)}</strong>${badge(a)}<button type="button">選択</button>`;row.querySelector('button').onclick=()=>{localStorage.setItem(ACTIVE_KEY,a.id);refreshHeader();closeModal();location.href='write.html'};list.appendChild(row)});document.getElementById('createAccount').onclick=showCreate;openModal()}
+function showCreate(){accountContent.innerHTML='<h3>アカウントを作る</h3><label>アカウント名</label><input id="newName" autocomplete="username"><label>パスワード</label><input id="newPassword" type="password" autocomplete="new-password"><button id="createSubmit" class="account-button" type="button">作成する</button><button id="backAccounts" class="account-button" type="button">一覧へ戻る</button>';document.getElementById('createSubmit').onclick=async()=>{const name=document.getElementById('newName').value.trim(),password=document.getElementById('newPassword').value;if(!name||password.length<4){accountMessage.textContent='名前と4文字以上のパスワードを入力してください。';return}const all=accounts();if(all.some(a=>a.name.toLowerCase()===name.toLowerCase())){accountMessage.textContent='そのアカウント名はすでに使われています。';return}const a={id:'user-'+crypto.randomUUID(),name,passwordHash:await hashPassword(password),createdAt:new Date().toISOString()};all.push(a);setAccounts(all);localStorage.setItem(ACTIVE_KEY,a.id);refreshHeader();accountMessage.textContent='アカウントを作成しました。';setTimeout(()=>location.href='write.html',400)};document.getElementById('backAccounts').onclick=showAccountList;openModal()}
+function showLogin(){accountContent.innerHTML='<h3>ログインする</h3><label>アカウント名</label><input id="loginName" autocomplete="username"><label>パスワード</label><input id="loginPassword" type="password" autocomplete="current-password"><button id="loginSubmit" class="account-button" type="button">ログイン</button><button id="toCreate" class="account-button" type="button">アカウントを作る</button>';document.getElementById('loginSubmit').onclick=async()=>{const name=document.getElementById('loginName').value.trim(),hash=await hashPassword(document.getElementById('loginPassword').value),a=accounts().find(x=>x.name===name&&x.passwordHash===hash);if(!a){accountMessage.textContent='アカウント名またはパスワードが違います。';return}localStorage.setItem(ACTIVE_KEY,a.id);refreshHeader();accountMessage.textContent='ログインしました。';setTimeout(()=>location.reload(),400)};document.getElementById('toCreate').onclick=showCreate;openModal()}
+function logout(){localStorage.removeItem(ACTIVE_KEY);refreshHeader();location.reload()}function openModal(){accountMessage.textContent='';accountModal.classList.add('open')}function closeModal(){accountModal.classList.remove('open')}function escapeHtml(x){const d=document.createElement('div');d.textContent=x;return d.innerHTML}document.getElementById('accountSelectButton').onclick=showAccountList;document.getElementById('loginButton').onclick=()=>activeAccount()?logout():showLogin;document.getElementById('closeAccount').onclick=closeModal;accountModal.onclick=e=>{if(e.target===accountModal)closeModal()};refreshHeader();
+</script>
 </body>
 </html>
