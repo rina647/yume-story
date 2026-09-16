@@ -6,6 +6,6 @@
  * 一般ユーザー向け画面からこのリストを変更する機能はありません。
  */
 window.YUME_OFFICIAL_ACCOUNTS = {
-  operators: [], // 運営公式：金色の王冠
+  operators: ["user-0200c77a-511d-49d9-ada7-379d5a58716f"], // 運営公式：金色の王冠
   authors: []   // 公式作者：青色の王冠
 };
