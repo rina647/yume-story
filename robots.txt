@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://rina647.github.io/yume-story/sitemap.xml
