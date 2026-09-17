@@ -14,7 +14,11 @@
 body {
   margin: 0;
   font-family: "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif;
-  background: linear-gradient(135deg, #fff8fc 0%, #f9f5ff 48%, #f4fbff 100%);
+  background-color: #fff8fc;
+  background-image: url('yume-world-background-concept-a.png');
+  background-position: center top;
+  background-size: cover;
+  background-attachment: fixed;
   color: #555;
   min-height: 100vh;
 }
@@ -30,10 +34,7 @@ body > header, body > nav, body > section, body > .container, body > footer {
   z-index: 0;
   overflow: hidden;
   pointer-events: none;
-  background:
-    radial-gradient(circle at 9% 14%, rgba(244, 199, 221, .24), transparent 23%),
-    radial-gradient(circle at 92% 24%, rgba(200, 232, 245, .25), transparent 24%),
-    radial-gradient(circle at 51% 70%, rgba(237, 232, 250, .34), transparent 35%);
+  display: none;
 }
 .dream-scene::before, .dream-scene::after {
   content: '';
