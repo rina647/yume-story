@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ランキング｜YUME WORLD</title>
+<style>
+*{box-sizing:border-box}
+:root{--pink:#d99bc0;--lilac:#bca9e8;--ink:#665568;--muted:#9e8e9f;--line:#eadcf0;--glass:rgba(255,255,255,.82)}
+body{margin:0;min-height:100vh;color:var(--ink);font-family:"Hiragino Kaku Gothic ProN","Yu Gothic",sans-serif;background:linear-gradient(135deg,#fff8fc 0%,#f1edfc 48%,#e9f7fc 100%);overflow-x:hidden}
+body:before,body:after{content:"";position:fixed;z-index:-1;border-radius:50%;filter:blur(2px);opacity:.45;pointer-events:none}
+body:before{width:360px;height:360px;left:-150px;top:22%;background:radial-gradient(circle,#f4c7dd,transparent 68%)}
+body:after{width:440px;height:440px;right:-190px;bottom:4%;background:radial-gradient(circle,#c8e8f5,transparent 68%)}
+a{color:inherit}
+.topbar{background:rgba(255,255,255,.78);border-bottom:1px solid rgba(234,220,240,.75);box-shadow:0 3px 18px #9b78a414;padding:18px 20px;display:flex;align-items:center;justify-content:space-between;gap:18px;position:sticky;top:0;z-index:5;backdrop-filter:blur(12px)}
+.brand{font-weight:800;letter-spacing:.12em;color:#a96f96;text-decoration:none}.home-link{border-radius:999px;padding:9px 15px;text-decoration:none;color:#956d9e;background:#fff;border:1px solid var(--line);font-size:13px}
+.page{max-width:1060px;margin:0 auto;padding:36px 18px 70px}.intro{text-align:center;margin:8px auto 28px}.intro h1{margin:0;color:#aa7198;font-size:clamp(25px,4vw,38px);letter-spacing:.04em;text-shadow:0 3px 15px #d99bc044}.intro p{margin:11px 0 0;color:#927f98;font-size:14px}
+.tabs,.genres{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}.tabs{margin:0 auto 14px}.tab,.genre{border:1px solid var(--line);background:rgba(255,255,255,.68);color:#8e7094;border-radius:999px;padding:10px 16px;cursor:pointer;font:inherit;font-size:13px;transition:transform .16s ease,background .16s ease,box-shadow .16s ease}.tab:hover,.genre:hover{transform:translateY(-1px)}.tab.active,.genre.active{color:#fff;border-color:transparent;background:linear-gradient(135deg,var(--pink),var(--lilac));box-shadow:0 6px 16px #bd8bbb33}.genres{margin:0 auto 28px}.genre{padding:7px 13px;font-size:12px;background:rgba(255,255,255,.52)}
+.status{text-align:center;color:var(--muted);font-size:13px;margin:0 0 16px}.ranking-list{display:grid;gap:14px}.rank-card{position:relative;display:grid;grid-template-columns:70px 100px minmax(0,1fr) auto;align-items:center;gap:18px;padding:17px 20px;border:1px solid rgba(234,220,240,.9);border-radius:22px;background:var(--glass);box-shadow:0 8px 24px #9b78a414;cursor:pointer;transition:transform .18s ease,box-shadow .18s ease}.rank-card:hover{transform:translateY(-3px);box-shadow:0 12px 28px #9b78a426}.rank-card.top-one{border-color:#ead090;background:linear-gradient(110deg,#fffdf6cc,#fff9fdc9)}.rank-card.top-two{border-color:#d3cfe4}.rank-card.top-three{border-color:#e7bdc9}.rank-badge{text-align:center;font-size:26px;font-weight:800;color:#a9769a}.rank-badge small{display:block;font-size:11px;font-weight:600;color:#a58b9d;margin-top:2px}.rank-card.top-one .rank-badge{color:#c49b35}.rank-card.top-two .rank-badge{color:#8f91ac}.rank-card.top-three .rank-badge{color:#c07b91}.cover{width:100px;height:128px;border-radius:14px;display:grid;place-items:center;text-align:center;overflow:hidden;color:#fff;font-weight:700;line-height:1.35;background:linear-gradient(145deg,#f7c9df,#cfc5f1);box-shadow:inset 0 0 0 1px #fff8}.cover img{width:100%;height:100%;object-fit:cover}.detail{min-width:0}.detail h2{font-size:18px;margin:0 0 6px;color:#875f80;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.author{font-size:12px;color:#a3849f;margin:0 0 7px}.copy{font-size:13px;line-height:1.6;color:#766b78;margin:0 0 8px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}.meta{display:flex;gap:7px;flex-wrap:wrap;align-items:center;font-size:11px;color:#9a8197}.genre-label,.tag{display:inline-block;border-radius:999px;padding:4px 8px;background:#f8e4ef;color:#ad7194}.tag{background:#f0edfb;color:#8874a0}.stats{display:flex;gap:11px;flex-wrap:wrap;justify-content:flex-end;color:#93798f;font-size:12px;white-space:nowrap}.stats span:first-letter{color:#b4779c}.empty{padding:48px 20px;text-align:center;border:1px dashed #d9c5e0;border-radius:20px;color:#a18da2;background:#ffffff66}
+@media(max-width:720px){.topbar{padding:14px 12px}.page{padding:27px 10px 50px}.rank-card{grid-template-columns:48px 76px minmax(0,1fr);gap:11px;padding:13px}.cover{width:76px;height:100px}.rank-badge{font-size:20px}.stats{grid-column:2 / -1;justify-content:flex-start;border-top:1px solid #eee5f0;padding-top:9px}.detail h2{font-size:16px}.copy{-webkit-line-clamp:3}.home-link{font-size:11px;padding:8px 11px}}
+@media(prefers-reduced-motion:reduce){.tab,.genre,.rank-card{transition:none}}
+</style>
+</head>
+<body>
+<header class="topbar"><a class="brand" href="index.html">YUME WORLD</a><a class="home-link" href="index.html">🏠 ホームへ戻る</a></header>
+<main class="page">
+<section class="intro"><h1>✨ YUME WORLD ランキング ✨</h1><p>みんなに読まれている物語を見つけよう♡</p></section>
+<nav class="tabs" aria-label="ランキングの種類">
+<button class="tab active" data-mode="overall">📖 総合</button><button class="tab" data-mode="views">👁 閲覧数</button><button class="tab" data-mode="favorites">💗 お気に入り</button><button class="tab" data-mode="likes">♡ いいね</button><button class="tab" data-mode="new">🆕 新着</button>
+</nav>
+<nav class="genres" aria-label="ジャンルで絞り込む"><button class="genre active" data-genre="all">すべて</button><button class="genre" data-genre="恋愛">恋愛</button><button class="genre" data-genre="ファンタジー">ファンタジー</button><button class="genre" data-genre="青春">青春</button><button class="genre" data-genre="学園">学園</button><button class="genre" data-genre="ミステリー">ミステリー</button><button class="genre" data-genre="ホラー">ホラー</button><button class="genre" data-genre="その他">その他</button></nav>
+<p id="status" class="status"></p><section id="rankingList" class="ranking-list" aria-live="polite"></section>
+</main>
+<script>
+const BASE='yumeWorldNovelV3',ACCOUNTS='yumeWorldAccountsV1',modes={overall:'総合',views:'閲覧数',favorites:'お気に入り',likes:'いいね',new:'新着'};let mode='overall',genre='all',works=[];
+const $=id=>document.getElementById(id),esc=x=>{const d=document.createElement('div');d.textContent=x??'';return d.innerHTML};
+function accounts(){try{return JSON.parse(localStorage.getItem(ACCOUNTS)||'[]')}catch(e){return[]}}
+function countFavorites(n){return Object.keys(n.readStats?.favorites||{}).length}
+function countLikes(n){return (n.chapters||[]).reduce((sum,c)=>sum+Object.keys(c.likes||{}).length,0)}
+function dateValue(n){return Date.parse(n.publishAt||n.publishedAt||n.createdAt||n.updatedAt||'')||0}
+function load(){const list=[{id:'guest',name:'ゲスト'},...accounts()];const seen=new Set;works=[];list.forEach(a=>{if(seen.has(a.id))return;seen.add(a.id);try{const n=JSON.parse(localStorage.getItem(a.id==='guest'?BASE:BASE+':'+a.id)||'null');if(n&&n.visibility==='public'&&!n.deleted&&!n.isDeleted&&n.status!=='deleted')works.push({owner:a.id,author:a.name||'ゲスト',n})}catch(e){}})}
+function metric(w){const n=w.n;return{views:n.readStats?.views||0,favorites:countFavorites(n),likes:countLikes(n),new:dateValue(n),overall:(n.readStats?.views||0)+countFavorites(n)*5+countLikes(n)*3}[mode]}
+function sorted(){return works.filter(w=>genre==='all'||(w.n.novelInfo?.genre||'その他')===genre).sort((a,b)=>metric(b)-metric(a)||dateValue(b.n)-dateValue(a.n)).slice(0,10)}
+function card(w,i){const n=w.n,info=n.novelInfo||{},views=n.readStats?.views||0,fav=countFavorites(n),likes=countLikes(n),rank=i+1,medal=rank===1?'🥇':rank===2?'🥈':rank===3?'🥉':rank+'位',tags=(info.hashtags||[]).slice(0,4);const el=document.createElement('article');el.className='rank-card '+(rank<=3?'top-'+['one','two','three'][rank-1]:'');el.tabIndex=0;el.setAttribute('role','link');el.innerHTML='<div class="rank-badge">'+medal+'<small>'+(rank<=3?'★ 注目作品 ★':'ランキング')+'</small></div><div class="cover">'+(n.cover?'<img src="'+esc(n.cover)+'" alt="'+esc(n.title||'表紙')+'">':'YUME<br>WORLD')+'</div><div class="detail"><h2>'+esc(n.title||'無題の小説')+'</h2><p class="author">作者：'+esc(w.author)+'</p><p class="copy">'+esc(info.catchCopy||n.summary||'夢の物語を読んでみよう。')+'</p><div class="meta"><span class="genre-label">'+esc(info.genre||'その他')+'</span>'+tags.map(t=>'<span class="tag">#'+esc(t)+'</span>').join('')+'</div></div><div class="stats"><span>👁 '+views.toLocaleString()</span><span>💗 '+fav.toLocaleString()</span><span>♡ '+likes.toLocaleString()+'</span></div>';const open=()=>location.href='novel.html?account='+encodeURIComponent(w.owner);el.onclick=open;el.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();open()}};return el}
+function render(){const list=sorted();$('status').textContent=(genre==='all'?'公開中の作品':'「'+genre+'」の公開作品')+' '+list.length+'件｜'+modes[mode]+'ランキング';$('rankingList').innerHTML='';if(!list.length){$('rankingList').innerHTML='<div class="empty">公開中の作品がまだありません。物語が公開されるとランキングに表示されます。</div>';return}list.forEach((w,i)=>$('rankingList').appendChild(card(w,i)))}
+document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{mode=b.dataset.mode;document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('active',x===b));render()});document.querySelectorAll('.genre').forEach(b=>b.onclick=()=>{genre=b.dataset.genre;document.querySelectorAll('.genre').forEach(x=>x.classList.toggle('active',x===b));render()});load();render();
+</script>
+</body>
+</html>
